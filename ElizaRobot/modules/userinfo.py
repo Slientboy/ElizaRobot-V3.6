@@ -20,12 +20,11 @@ from ElizaRobot.__main__ import STATS, TOKEN, USER_INFO
 import ElizaRobot.modules.sql.userinfo_sql as sql
 from ElizaRobot.modules.disable import DisableAbleCommandHandler
 from ElizaRobot.modules.sql.global_bans_sql import is_user_gbanned
-from ElizaRobot.modules.sql.afk_sql import is_afk, check_afk_status
+from ElizaRobot.modules.sql.afk_redis import is_user_afk, afk_reason
 from ElizaRobot.modules.sql.users_sql import get_user_num_chats
-from ElizaRobot.modules.sql.feds_sql import get_user_fbanlist
 from ElizaRobot.modules.helper_funcs.chat_status import sudo_plus
 from ElizaRobot.modules.helper_funcs.extraction import extract_user
-from ElizaRobot import telethn as SaitamaTelethonClient, TIGERS, DRAGONS, DEMONS
+from ElizaRobot import telethn as ElizaTelethonClient, TIGERS, DRAGONS, DEMONS
 
 
 def no_by_per(totalhp, percentage):
@@ -72,11 +71,11 @@ def hpmanager(user):
         if not sql.get_user_bio(user.id):
             new_hp -= no_by_per(total_hp, 10)
 
-        if is_afk(user.id):
-            afkst = check_afk_status(user.id)
+        if is_user_afk(user.id):
+            afkst = afk_reason(user.id)
             # if user is afk and no reason then decrease 7%
             # else if reason exist decrease 5%
-            if not afkst.reason:
+            if not afkst:
                 new_hp -= no_by_per(total_hp, 7)
             else:
                 new_hp -= no_by_per(total_hp, 5)
@@ -242,7 +241,7 @@ def info(update: Update, context: CallbackContext):
     if chat.type != "private" and user_id != bot.id:
         _stext = "\nPresence: <code>{}</code>"
 
-        afk_st = is_afk(user.id)
+        afk_st = is_user_afk(user.id)
         if afk_st:
             text += _stext.format("AFK")
         else:
@@ -272,26 +271,26 @@ def info(update: Update, context: CallbackContext):
     disaster_level_present = False
 
     if user.id == OWNER_ID:
-        text += "\n\nThe Disaster level of this person is 'God'."
+        text += "\n\nThe HUNTER SKILL of this person is 'INFINITE'."
         disaster_level_present = True
     elif user.id in DEV_USERS:
-        text += "\n\nThis user is member of 'Hero Association'."
+        text += "\n\nThis user is CO-OWNER of '🍁SOLO•GUILD🍁'."
         disaster_level_present = True
     elif user.id in DRAGONS:
-        text += "\n\nThe Disaster level of this person is 'Dragon'."
+        text += "\n\nThe HUNTER SKILL of this person is 'S-RANK'."
         disaster_level_present = True
     elif user.id in DEMONS:
-        text += "\n\nThe Disaster level of this person is 'Demon'."
+        text += "\n\nThe HUNTER SKILL of this person is 'A-RANK'."
         disaster_level_present = True
     elif user.id in TIGERS:
-        text += "\n\nThe Disaster level of this person is 'Tiger'."
+        text += "\n\nThe HUNTER SKILL of this person is 'B-RANK'."
         disaster_level_present = True
     elif user.id in WOLVES:
-        text += "\n\nThe Disaster level of this person is 'Wolf'."
+        text += "\n\nThe HUNTER SKILL of this person is 'C-RANK'."
         disaster_level_present = True
 
     if disaster_level_present:
-        text += ' [<a href="https://t.me/OnePunchUpdates/155">?</a>]'.format(
+        text += ' [<a href="https://t.me/IGRISROBOT_SUPPORT/2">?</a>]'.format(
             bot.username)
 
     try:
@@ -318,16 +317,14 @@ def info(update: Update, context: CallbackContext):
     if INFOPIC:
         try:
             profile = context.bot.get_user_profile_photos(user.id).photos[0][-1]
-            _file = bot.get_file(profile["file_id"])
-            _file.download(f"{user.id}.png")
-
-            message.reply_document(
-                document=open(f"{user.id}.png", "rb"),
-                caption=(text),
-                parse_mode=ParseMode.HTML,
-                disable_web_page_preview=True)
-
-            os.remove(f"{user.id}.png")
+            context.bot.sendChatAction(chat.id, "upload_photo")
+            context.bot.send_photo(
+            chat.id,
+            photo=profile,
+            caption=(text),
+            parse_mode=ParseMode.HTML,
+            disable_web_page_preview=True,
+        )
         # Incase user don't have profile pic, send normal text
         except IndexError:
             message.reply_text(
@@ -461,7 +458,7 @@ def set_about_bio(update: Update, context: CallbackContext):
 
         if user_id == bot.id and sender_id not in DEV_USERS:
             message.reply_text(
-                "Erm... yeah, I only trust Heroes Association to set my bio.")
+                "Erm... yeah, I only trust 🍁SOLO•GUILD🍁 to set my bio.")
             return
 
         text = message.text
@@ -516,6 +513,8 @@ Examples:
 *Overall Information about you:*
  • `/info`*:* get information about a user. 
  
+*What is that health thingy?*
+ Come and see [HP System explained](https://t.me/OnePunchUpdates/192)
 """
 
 SET_BIO_HANDLER = DisableAbleCommandHandler("setbio", set_about_bio)
@@ -538,7 +537,7 @@ dispatcher.add_handler(GET_BIO_HANDLER)
 dispatcher.add_handler(SET_ABOUT_HANDLER)
 dispatcher.add_handler(GET_ABOUT_HANDLER)
 
-__mod_name__ = "Bios/Abouts"
+__mod_name__ = "Info"
 __command_list__ = ["setbio", "bio", "setme", "me", "info"]
 __handlers__ = [
     ID_HANDLER, GIFID_HANDLER, INFO_HANDLER, SET_BIO_HANDLER, GET_BIO_HANDLER,
