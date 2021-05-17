@@ -22,6 +22,7 @@ from ElizaRobot.modules.disable import DisableAbleCommandHandler
 from ElizaRobot.modules.sql.global_bans_sql import is_user_gbanned
 from ElizaRobot.modules.sql.afk_redis import is_user_afk, afk_reason
 from ElizaRobot.modules.sql.users_sql import get_user_num_chats
+from ElizaRobot.modules.sql.feds_sql import get_user_fbanlist
 from ElizaRobot.modules.helper_funcs.chat_status import sudo_plus
 from ElizaRobot.modules.helper_funcs.extraction import extract_user
 from ElizaRobot import telethn as ElizaTelethonClient, TIGERS, DRAGONS, DEMONS
@@ -151,7 +152,7 @@ def get_id(update: Update, context: CallbackContext):
                 parse_mode=ParseMode.HTML)
 
 
-@ElizaTelethonClient.on(
+@SaitamaTelethonClient.on(
     events.NewMessage(
         pattern='/ginfo ',
         from_users=(TIGERS or []) + (DRAGONS or []) + (DEMONS or [])))
@@ -224,7 +225,7 @@ def info(update: Update, context: CallbackContext):
         return
 
     rep = message.reply_text(
-        "<code>Appraising...</code>", parse_mode=ParseMode.HTML)
+        "<code>Eliza searching user info...</code>", parse_mode=ParseMode.HTML)
 
     text = (f"╒═══「<b> Appraisal results:</b> 」\n"
             f"ID: <code>{user.id}</code>\n"
@@ -271,26 +272,26 @@ def info(update: Update, context: CallbackContext):
     disaster_level_present = False
 
     if user.id == OWNER_ID:
-        text += "\n\nThe HUNTER SKILL of this person is 'INFINITE'."
+        text += "\n\nThe Disaster level of this person is 'God'."
         disaster_level_present = True
     elif user.id in DEV_USERS:
-        text += "\n\nThis user is CO-OWNER of '🍁SOLO•GUILD🍁'."
+        text += "\n\nThis user is member of 'Bot Lab'."
         disaster_level_present = True
     elif user.id in DRAGONS:
-        text += "\n\nThe HUNTER SKILL of this person is 'S-RANK'."
+        text += "\n\nThe Disaster level of this person is 'Dragon'."
         disaster_level_present = True
     elif user.id in DEMONS:
-        text += "\n\nThe HUNTER SKILL of this person is 'A-RANK'."
+        text += "\n\nThe Disaster level of this person is 'Demon'."
         disaster_level_present = True
     elif user.id in TIGERS:
-        text += "\n\nThe HUNTER SKILL of this person is 'B-RANK'."
+        text += "\n\nThe Disaster level of this person is 'Tiger'."
         disaster_level_present = True
     elif user.id in WOLVES:
-        text += "\n\nThe HUNTER SKILL of this person is 'C-RANK'."
+        text += "\n\nThe Disaster level of this person is 'Wolf'."
         disaster_level_present = True
 
     if disaster_level_present:
-        text += ' [<a href="https://t.me/IGRISROBOT_SUPPORT/2">?</a>]'.format(
+        text += ' [<a href="https://t.me/BotLabUpdates/33">?</a>]'.format(
             bot.username)
 
     try:
@@ -317,14 +318,16 @@ def info(update: Update, context: CallbackContext):
     if INFOPIC:
         try:
             profile = context.bot.get_user_profile_photos(user.id).photos[0][-1]
-            context.bot.sendChatAction(chat.id, "upload_photo")
-            context.bot.send_photo(
-            chat.id,
-            photo=profile,
-            caption=(text),
-            parse_mode=ParseMode.HTML,
-            disable_web_page_preview=True,
-        )
+            _file = bot.get_file(profile["file_id"])
+            _file.download(f"{user.id}.png")
+
+            message.reply_document(
+                document=open(f"{user.id}.png", "rb"),
+                caption=(text),
+                parse_mode=ParseMode.HTML,
+                disable_web_page_preview=True)
+
+            os.remove(f"{user.id}.png")
         # Incase user don't have profile pic, send normal text
         except IndexError:
             message.reply_text(
@@ -458,7 +461,7 @@ def set_about_bio(update: Update, context: CallbackContext):
 
         if user_id == bot.id and sender_id not in DEV_USERS:
             message.reply_text(
-                "Erm... yeah, I only trust 🍁SOLO•GUILD🍁 to set my bio.")
+                "Erm... yeah, I only trust Black Knights Union to set my bio.")
             return
 
         text = message.text
@@ -495,23 +498,23 @@ __help__ = """
 *ID:*
  • `/id`*:* get the current group id. If used by replying to a message, gets that user's id.
  • `/gifid`*:* reply to a gif to me to tell you its file ID.
-
 *Self addded information:* 
  • `/setme <text>`*:* will set your info
  • `/me`*:* will get your or another user's info.
 Examples:
  `/setme I am a wolf.`
  `/me @username(defaults to yours if no user specified)`
-
 *Information others add on you:* 
  • `/bio`*:* will get your or another user's bio. This cannot be set by yourself.
 • `/setbio <text>`*:* while replying, will save another user's bio 
 Examples:
  `/bio @username(defaults to yours if not specified).`
  `/setbio This user is a wolf` (reply to the user)
-
 *Overall Information about you:*
  • `/info`*:* get information about a user. 
+ 
+*◢ Intellivoid SpamProtection:*
+ • `/spwinfo`*:* SpamProtection Info
  
 *What is that health thingy?*
  Come and see [HP System explained](https://t.me/OnePunchUpdates/192)
