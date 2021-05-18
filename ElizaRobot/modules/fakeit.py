@@ -10,10 +10,10 @@ from telethon import events
 
 from ElizaRobot.function.telethonbasics import is_admin
 from ElizaRobot import pbot
-
+from ElizaRobot import telethn
 
 @telethn.on(events.NewMessage(pattern="^[!/]fakegen$"))
-async def fakegen(event):
+async def fakegen(events):
     if event.fwd_from:
         return
     if event.is_group:
@@ -38,7 +38,7 @@ async def fakegen(event):
 
 
 @telethn.on(events.NewMessage(pattern="/picgen$"))
-async def picgen(event):
+async def picgen(events):
     if event.fwd_from:
         return
     if await is_admin(event, event.message.sender_id):
@@ -50,6 +50,6 @@ async def picgen(event):
 
         captin = f"Fake Image powered by @ElizaRobot."
         fole = "FRIDAYOT.jpg"
-        await pbot.send_file(event.chat_id, fole, caption=captin)
+        await telethn.send_file(event.chat_id, fole, caption=captin)
         await event.delete()
         os.system("rm ./FRIDAYOT.jpg ")
