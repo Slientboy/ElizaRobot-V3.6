@@ -2,19 +2,11 @@
 import json
 import os
 
-def get_list_key(name, required=False):
-    if name in DEFAULTS:
-        default = DEFAULTS[name]
-    else:
-        default = None
-    if not (data := env.list(name, default=default)) and not required:
-        log.warn("No list key: " + name)
-        return []
-    elif not data:
-        log.critical("No list key: " + name)
-        sys.exit(2)
-    else:
-        return data
+
+
+def get_user_list(config, key):
+    with open("{}/ElizaRobt/{}".format(os.getcwd(), config), "r") as json_file:
+        return json.load(json_file)[key]
 
 
 def get_str_key(name, required=False):
