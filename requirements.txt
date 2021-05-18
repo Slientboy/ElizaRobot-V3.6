@@ -51,3 +51,4 @@ faker
 aiogram
 pymongo
 motor
+dnspython
