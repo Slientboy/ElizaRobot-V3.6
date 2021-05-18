@@ -48,3 +48,4 @@ telegraph
 apscheduler
 redis
 faker
+aiogram
