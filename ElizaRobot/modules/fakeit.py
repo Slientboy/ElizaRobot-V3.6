@@ -13,7 +13,7 @@ from ElizaRobot import pbot
 from ElizaRobot import telethn
 
 @telethn.on(events.NewMessage(pattern="^[!/]fakegen$"))
-async def fakegen(events):
+async def fakegen(event):
     if event.fwd_from:
         return
     if event.is_group:
@@ -38,7 +38,7 @@ async def fakegen(events):
 
 
 @telethn.on(events.NewMessage(pattern="/picgen$"))
-async def picgen(events):
+async def picgen(event):
     if event.fwd_from:
         return
     if await is_admin(event, event.message.sender_id):
@@ -50,6 +50,6 @@ async def picgen(events):
 
         captin = f"Fake Image powered by @ElizaRobot."
         fole = "FRIDAYOT.jpg"
-        await telethn.send_file(event.chat_id, fole, caption=captin)
+        await pbot.send_file(event.chat_id, fole, caption=captin)
         await event.delete()
         os.system("rm ./FRIDAYOT.jpg ")
