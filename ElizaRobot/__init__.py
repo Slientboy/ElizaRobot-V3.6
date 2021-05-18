@@ -208,9 +208,9 @@ telethn = TelegramClient("layla", API_ID, API_HASH)
 pbot = Client("elizapbot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 pgram = Client("eliza", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 dispatcher = updater.dispatcher
-mongodb = MongoClient(MONGO_DB_URL)
-motor = motor_asyncio.AsyncIOMotorClient(MONGO_DB_URL)
-db = motor[MONGO_DB_URL]
+mongodb = MongoClient(MONGO_DB_URI)
+motor = motor_asyncio.AsyncIOMotorClient(MONGO_DB_URI)
+db = motor[MONGO_DB_URI]
 
 DRAGONS = list(DRAGONS) + list(DEV_USERS)
 DEV_USERS = list(DEV_USERS)
