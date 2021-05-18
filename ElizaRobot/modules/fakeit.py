@@ -12,7 +12,7 @@ from ElizaRobot.function.telethonbasics import is_admin
 from ElizaRobot import pbot
 
 
-@telethn.on(events.NewMessage(pattern="/fakegen$"))
+@telethn.on(events.NewMessage(pattern="^[!/]fakegen$"))
 async def fakegen(event):
     if event.fwd_from:
         return
