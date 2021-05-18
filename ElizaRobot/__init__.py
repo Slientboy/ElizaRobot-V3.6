@@ -206,6 +206,8 @@ updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
 telethn = TelegramClient("layla", API_ID, API_HASH)
 pbot = Client("elizapbot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 pgram = Client("eliza", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
+mongo_client = MongoClient(MONGO_DB_URI)
+db = mongo_client.MashaRoBot
 dispatcher = updater.dispatcher
 
 DRAGONS = list(DRAGONS) + list(DEV_USERS)
