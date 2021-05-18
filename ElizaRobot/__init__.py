@@ -3,8 +3,7 @@ import os
 import sys
 import time
 import spamwatch
-from pymongo import MongoClient
-from motor import motor_asyncio
+
 import telegram.ext as tg
 from redis import StrictRedis
 from pyrogram import Client, errors
@@ -208,9 +207,6 @@ telethn = TelegramClient("layla", API_ID, API_HASH)
 pbot = Client("elizapbot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 pgram = Client("eliza", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 dispatcher = updater.dispatcher
-mongodb = MongoClient(MONGO_DB_URI)
-motor = motor_asyncio.AsyncIOMotorClient(MONGO_DB_URI)
-db = motor[MONGO_DB_URI]
 
 DRAGONS = list(DRAGONS) + list(DEV_USERS)
 DEV_USERS = list(DEV_USERS)
