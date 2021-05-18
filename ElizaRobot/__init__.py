@@ -3,7 +3,8 @@ import os
 import sys
 import time
 import spamwatch
-
+from pymongo import MongoClient
+from motor import motor_asyncio
 import telegram.ext as tg
 from redis import StrictRedis
 from pyrogram import Client, errors
