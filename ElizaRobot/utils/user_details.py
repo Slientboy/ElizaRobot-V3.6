@@ -23,7 +23,7 @@ from aiogram.types import CallbackQuery, Message
 from aiogram.utils.exceptions import BadRequest, ChatNotFound, Unauthorized
 from telethon.tl.functions.users import GetFullUserRequest
 
-from ElizaRobot import OPERATORS, bot
+from ElizaRobot import OWNER_ID, bot
 from ElizaRobot import db
 from ElizaRobot import redis
 from ElizaRobot import telethn
