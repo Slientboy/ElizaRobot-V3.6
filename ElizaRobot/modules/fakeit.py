@@ -48,7 +48,7 @@ async def hi(event):
     )
 
 
-@pbot (events.NewMessage(pattern="/picgen$"))
+@fakegen.on (events.NewMessage(pattern="/picgen$"))
 async def _(event):
     if event.fwd_from:
         return
