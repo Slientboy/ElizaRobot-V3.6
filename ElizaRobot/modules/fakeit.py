@@ -8,7 +8,7 @@ from faker import Faker
 from faker.providers import internet
 from telethon import events
 
-from ElizaRobot.help_funcs.chat_status import is_user_admin
+from ElizaRobot.modules.help_funcs.chat_status import is_user_admin
 from ElizaRobot import pbot
 from ElizaRobot import telethn
 
