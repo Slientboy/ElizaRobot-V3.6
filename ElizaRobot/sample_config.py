@@ -6,7 +6,7 @@ import os
 
 def get_user_list(config, key):
     with open("{}/ElizaRobt/{}".format(os.getcwd(), config), "r") as json_file:
-        return elevated_users json.load(json_file)[key]
+        return json.load(json_file)[key]
 
 
 def get_str_key(name, required=False):
