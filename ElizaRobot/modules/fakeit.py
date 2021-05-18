@@ -8,7 +8,7 @@ from faker import Faker
 from faker.providers import internet
 from telethon import events
 
-from ElizaRobot.function.telethonbasics import is_admin
+from ElizaRobot.help_func.chat_status import is_user_admin
 from ElizaRobot import pbot
 from ElizaRobot import telethn
 
@@ -17,7 +17,7 @@ async def fakegen(event):
     if event.fwd_from:
         return
     if event.is_group:
-        if not await is_admin(event, event.message.sender_id):
+        if not await is_user_admin(event, event.message.sender_id):
             await event.reply("`You Should Be Admin To Do This!`")
             return
     fake = Faker()
@@ -41,7 +41,7 @@ async def fakegen(event):
 async def picgen(event):
     if event.fwd_from:
         return
-    if await is_admin(event, event.message.sender_id):
+    if await is_user_admin(event, event.message.sender_id):
         url = "https://thispersondoesnotexist.com/image"
         response = requests.get(url)
         if response.status_code == 200:
