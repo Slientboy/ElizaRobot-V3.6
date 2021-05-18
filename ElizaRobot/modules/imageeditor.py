@@ -10,7 +10,7 @@ from pyrogram.types import (
 )
 
 # By @TroJanzHEX
-from ElizaRobo upt.ImageEditor.edit_1 import (  # pylint:disable=import-error
+from ElizaRobot.ImageEditor.edit_1 import (  # pylint:disable=import-error
     black_white,
     box_blur,
     bright,
@@ -44,7 +44,7 @@ from ElizaRobot.ImageEditor.edit_4 import (  # pylint:disable=import-error
     rotate_270,
     round_sticker,
 )
-from EpizaRobot.ImageEditor.edit_5 import (  # pylint:disable=import-error
+from ElizaRobot.ImageEditor.edit_5 import (  # pylint:disable=import-error
     normalglitch_1,
     normalglitch_2,
     normalglitch_3,
@@ -56,7 +56,7 @@ from EpizaRobot.ImageEditor.edit_5 import (  # pylint:disable=import-error
     scanlineglitch_4,
     scanlineglitch_5,
 )
-from ElkzaRobot import pbot as Client
+from ElizaRobot import pbot as Client
 
 lel = 00000000
 # pylint:disable=import-error
