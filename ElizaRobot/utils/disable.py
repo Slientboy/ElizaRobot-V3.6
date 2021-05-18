@@ -15,8 +15,8 @@
 
 from contextlib import suppress
 
-from ElizaRobot.modules.utils.user_details import is_user_admin
-from ElizaRobot.services.mongo import db
+from ElizaRobot.utils.user_details import is_user_admin
+from ElizaRobot import db
 from ElizaRobot.utils.logger import log
 
 DISABLABLE_COMMANDS = []
