@@ -49,3 +49,5 @@ apscheduler
 redis
 faker
 aiogram
+pymongo
+motor
