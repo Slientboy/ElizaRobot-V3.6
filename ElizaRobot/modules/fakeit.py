@@ -23,7 +23,7 @@ from ElizaRobot.function.telethonbasics import is_admin
 from ElizaRobot import pbot
 
 
-@pbot (events.NewMessage(pattern="/fakegen$"))
+@fakegen.on (events.NewMessage(pattern="/fakegen$"))
 async def hi(event):
     if event.fwd_from:
         return
@@ -48,7 +48,7 @@ async def hi(event):
     )
 
 
-@fakegen.on (events.NewMessage(pattern="/picgen$"))
+@picgen.on (events.NewMessage(pattern="/picgen$"))
 async def _(event):
     if event.fwd_from:
         return
