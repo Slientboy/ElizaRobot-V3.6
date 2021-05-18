@@ -18,9 +18,9 @@ import re
 from contextlib import suppress
 from typing import Union
 
-from aiogram.dispatcher.handler import SkipHandler
-from aiogram.types import CallbackQuery, Message
-from aiogram.utils.exceptions import BadRequest, ChatNotFound, Unauthorized
+from pyrogram.dispatcher.handler import SkipHandler
+from pyrogram.types import CallbackQuery, Message
+from pyrogram.utils.exceptions import BadRequest, ChatNotFound, Unauthorized
 from telethon.tl.functions.users import GetFullUserRequest
 
 from ElizaRobot import OPERATORS, bot
