@@ -56,5 +56,3 @@ ImageEditor
 glitch_this
 NumPy
 opencv-python-headless
-Pillow
-
