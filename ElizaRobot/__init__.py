@@ -228,11 +228,6 @@ storage = RedisStorage2(
     port=get_int_key("REDIS_PORT"),
     db=get_int_key("REDIS_DB_FSM")
 )
-dp = Dispatcher(bot, storage=storage)
-
-bot_info = loop.run_until_complete(bot.get_me())
-BOT_USERNAME = bot_info.username
-BOT_ID = bot_info.id
 
 DRAGONS = list(DRAGONS) + list(DEV_USERS)
 DEV_USERS = list(DEV_USERS)
