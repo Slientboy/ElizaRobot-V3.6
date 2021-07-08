@@ -54,5 +54,6 @@ motor
 dnspython
 glitch_this
 NumPy
+aioredis
 opencv-python-headless
 envparse
