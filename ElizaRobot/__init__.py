@@ -10,6 +10,9 @@ import telegram.ext as tg
 from redis import StrictRedis
 from pyrogram import Client, errors
 from telethon import TelegramClient
+from aiogram import Bot, Dispatcher, types
+from aiogram.contrib.fsm_storage.redis import RedisStorage2
+from AllMightRobot.config import get_str_key, get_int_key
 
 StartTime = time.time()
 
