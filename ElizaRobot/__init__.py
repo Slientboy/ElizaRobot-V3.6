@@ -78,6 +78,11 @@ if ENV:
     API_HASH = os.environ.get('API_HASH', None)
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     DB_URI = os.environ.get('DATABASE_URL')
+    BOT_ID = os.environ.get("BOT_ID", None)
+    BOT_USERNAME = os.environ.get("BOT_USERNAME", None)
+    REDIS_URI = os.environ.get("REDIS_URI", None)
+    REDIS_PORT = os.environ.get("REDIS_PORT", None)
+    REDIS__DB_FSM = os.environ.get("REDIS__DB_FSM", None)
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
     DONATION_LINK = os.environ.get('DONATION_LINK')
     LOAD = os.environ.get("LOAD", "").split()
@@ -211,6 +216,23 @@ pgram = Client("eliza", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 mongo_client = MongoClient(MONGO_DB_URI)
 db = mongo_client.MashaRoBot
 dispatcher = updater.dispatcher
+
+
+#AIOGram
+bot = Bot(token=TOKEN, parse_mode=types.ParseMode.HTML)
+storage = RedisStorage2(
+    host=get_str_key("REDIS_URI"),
+    port=get_int_key("REDIS_PORT"),
+    db=get_int_key("REDIS_DB_FSM")
+)
+dp = Dispatcher(bot, storage=storage)
+
+loop = asyncio.get_event_loop()
+
+log.debug("Getting bot info...")
+bot_info = loop.run_until_complete(bot.get_me())
+BOT_USERNAME = bot_info.username
+BOT_ID = bot_info.id
 
 DRAGONS = list(DRAGONS) + list(DEV_USERS)
 DEV_USERS = list(DEV_USERS)
