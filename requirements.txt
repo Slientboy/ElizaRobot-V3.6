@@ -55,3 +55,4 @@ dnspython
 glitch_this
 NumPy
 opencv-python-headless
+envparse
