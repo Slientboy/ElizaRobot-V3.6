@@ -230,9 +230,6 @@ storage = RedisStorage2(
 )
 dp = Dispatcher(bot, storage=storage)
 
-loop = asyncio.get_event_loop()
-
-log.debug("Getting bot info...")
 bot_info = loop.run_until_complete(bot.get_me())
 BOT_USERNAME = bot_info.username
 BOT_ID = bot_info.id
