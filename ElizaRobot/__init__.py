@@ -221,14 +221,6 @@ db = mongo_client.MashaRoBot
 dispatcher = updater.dispatcher
 
 
-#AIOGram
-bot = Bot(token=TOKEN, parse_mode=types.ParseMode.HTML)
-storage = RedisStorage2(
-    host=get_str_key("REDIS_URI"),
-    port=get_int_key("REDIS_PORT"),
-    db=get_int_key("REDIS_DB_FSM")
-)
-
 DRAGONS = list(DRAGONS) + list(DEV_USERS)
 DEV_USERS = list(DEV_USERS)
 WOLVES = list(WOLVES)
