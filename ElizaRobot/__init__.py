@@ -13,6 +13,7 @@ from telethon import TelegramClient
 from aiogram import Bot, Dispatcher, types
 from aiogram.contrib.fsm_storage.redis import RedisStorage2
 from ElizaRobot.config import get_str_key, get_int_key
+from ElizaRobot import LOGGER
 
 StartTime = time.time()
 
